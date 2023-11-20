@@ -1,104 +1,83 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+void main(){
 
-void main() {
-  // runApp(
-  //   MaterialApp(
-  //     home: Scaffold(
-  //       body:Center(
-  //         child: Text("Hello World"),
-  //       ),
-  //     ),
-  //   )
-  // );
   runApp(
-      MyApp()
+      App()
   );
-}
-//Hot reload= ctrl+S
-//Hot restart= ctrl+shift+\
 
-class MyApp extends StatelessWidget{
+}
+class App extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Homescreen(),
-      title: 'MyApp',
+    return  MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Homescreen()
     );
   }
 }
-
 class Homescreen extends StatelessWidget{
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context)
+  {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black54,
-        title: Text("Home"),
-        centerTitle:true,
-        leading: Icon(Icons.home,color:Colors.lightBlueAccent,size: 30,),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        appBar:AppBar(
+          leading: Icon(Icons.add_business_outlined),
+          title: Text('Home'),
+          actions:[Icon(Icons.search)],
+          centerTitle:true,
+          backgroundColor: Colors.green,
+          elevation: 70,
+          toolbarHeight: 100,
+        ),
+        body:Center(
+            child:Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('This is mod 5 Assignmnt',style: TextStyle(
+                      fontSize: 20,
+                      fontWeight:FontWeight.bold
+                  ),
+                  ),
 
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                Text("WELLCOME",style: TextStyle(
-                  fontSize: 25,
-                ),
-                ),
+                  RichText(text: TextSpan(
+                      text: 'My ',style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red
+                  ),
+                      children: [
+                        TextSpan(
+                            text: 'phone ',style: TextStyle(
+                            fontSize:13,
+                            color: Colors.blue
 
-                Text("Home",style: TextStyle(
-                    fontSize: 25
-                ),
-                ),
-              ]
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Little Boy From Rosario",style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.lightBlue
-              ),
-              ),
-              Icon(Icons.accessible),
-            ],
-          ),
-          ///Image.asset("images/ron.jpeg"),  //Import image from file
+                        )
 
-          Image.network("https://idsb.tmgrup.com.tr/ly/uploads/images/2022/12/19/247181.jpg",
-            height: 175,
-            //width: 200,
-            //fit: BoxFit.scaleDown,
-          ),
-          RichText(text: TextSpan(
-              text: 'To Register ',style: TextStyle(
-              fontSize: 18,
-              color: Colors.blue
-          ),
-              children: [
-                TextSpan(
-                  text:'Tap on ',
-                ),
-                TextSpan(
-                    text: 'SignUp ',style: TextStyle(
-                    fontSize: 22,
-                    color:Colors.black54
-                )
-                ),
-              ]
-          )
-          ) //Import image from network
-        ],
-      ),
+                        ),
+                        TextSpan(
+                            text: 'name ',style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.purple
+                        )
+
+                        ),
+                        TextSpan(
+                            text: 'POCO X3',style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.amber
+                        )
+
+                        )
+                      ]
+                  )
+                  )
+                ]
+            )
+        )
     );
   }
-
 }
+
+
+
+
