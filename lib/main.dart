@@ -19,84 +19,56 @@ class MyApp extends StatelessWidget{
     );
   }
 }
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  List<String>students=[
+    'fahim',
+    'rahim',
+    'karim',
+    'shakib',
+    'tamim',
+    'kabir',
+    'messi',
+    'ronaldo',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-          centerTitle: true,
-        ),
-        body: Scrollbar(
-          thickness: 13,
-          radius: Radius.circular(16),
-          child: ListView(
-            //scrollDirection: Axis.horizontal,
-            children: [
-              ListTile(
-                leading: Icon(Icons.android_outlined),
-                title: Text('Username'),
-                subtitle: Text('username@gmail.com'),
-                trailing: Icon(Icons.arrow_right,size: 30,),
-                onTap: (){
-                  print('Tapped');
-                },
-              ),
-              Divider(
-                thickness: 1,
-                color: Colors.pink,
-                height: 5,
-                indent: 16,
-                endIndent: 16,
-              ),
+      appBar: AppBar(
+        title: Text("Home"),
+        centerTitle: true,
+      ),
 
-              ListTile(
-                leading: Icon(Icons.android_outlined),
-                title: Text('Username'),
-                subtitle: Text('username@gmail.com'),
-                trailing: Icon(Icons.arrow_right,size: 30,),
-              ),
-
-              Divider(
-                thickness: 1,
-                color: Colors.pink,
-                height: 5,
-                indent: 16,
-                endIndent: 16,
-              ),
-
-              ListTile(
-                leading: Icon(Icons.android_outlined),
-                title: Text('Username'),
-                subtitle: Text('username@gmail.com'),
-                trailing: Icon(Icons.arrow_right,size: 30,),
-              ),
-
-              Divider(
-                thickness: 1,
-                color: Colors.pink,
-                height: 5,
-                indent: 16,
-                endIndent: 16,
-              ),
-
-              ListTile(
-                leading: Icon(Icons.android_outlined),
-                title: Text('Username'),
-                subtitle: Text('username@gmail.com'),
-                trailing: Icon(Icons.arrow_right,size: 30,),
-              ),
-
-              Divider(
-                thickness: 1,
-                color: Colors.pink,
-                height: 5,
-                indent: 16,
-                endIndent: 16,
-              ),
-            ],
-          ),
-        )///
+      //body:ListView.builder
+      // body: ListView.separated(
+      //     itemCount: 100,
+      //     itemBuilder:(context,index){
+      //       return ListTile(
+      //         title: Text('Item Number is $index'),
+      //       );
+      //     },
+      //     separatorBuilder: (context,index){
+      //       return Column(
+      //         children: [
+      //           Text('$index'),
+      //           Divider(),
+      //         ],
+      //       );
+      body: ListView.separated(
+        itemCount: 8,
+        itemBuilder:(context,index){
+          return ListTile(
+            title: Text("$index - ${students[index]}"),
+          );
+        },
+        separatorBuilder: (context,index){
+          return Divider();
+        },
+      ),
 
     );
   }
