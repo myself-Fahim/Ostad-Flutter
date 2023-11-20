@@ -19,58 +19,116 @@ class MyApp extends StatelessWidget{
     );
   }
 }
-class Homescreen extends StatefulWidget {
+///Route
+class Homescreen extends StatelessWidget{
   @override
-  State<Homescreen> createState() => _HomescreenState();
-}
-
-class _HomescreenState extends State<Homescreen> {
-  List<String>students=[
-    'fahim',
-    'rahim',
-    'karim',
-    'shakib',
-    'tamim',
-    'kabir',
-    'messi',
-    'ronaldo',
-  ];
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text('Home'),
         centerTitle: true,
       ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Home',style: TextStyle(
+                fontSize: 30
+            ),
+            ),
 
-      //body:ListView.builder
-      // body: ListView.separated(
-      //     itemCount: 100,
-      //     itemBuilder:(context,index){
-      //       return ListTile(
-      //         title: Text('Item Number is $index'),
-      //       );
-      //     },
-      //     separatorBuilder: (context,index){
-      //       return Column(
-      //         children: [
-      //           Text('$index'),
-      //           Divider(),
-      //         ],
-      //       );
-      body: ListView.separated(
-        itemCount: 8,
-        itemBuilder:(context,index){
-          return ListTile(
-            title: Text("$index - ${students[index]}"),
-          );
-        },
-        separatorBuilder: (context,index){
-          return Divider();
-        },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: (){
+                  ///Navigation
+                  ///Route Homescreen to Route Setting Screen
+                  ///Navigation (push,pop,replace,replaceAll,removeUntil
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder:(context)=>OrderScreen()
+                      )
+                  );
+                },
+                child: Text('Tap for Order'),
+              ),
+            ),
+
+            ElevatedButton(
+                onPressed: (){
+                  ///Navigation
+                  ///Route Homescreen to Route Setting Screen
+                  ///Navigation (push,pop,replace,replaceAll,removeUntil
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder:(context)=>SettingScreen()
+                      )
+                  );
+                },
+                child: Text('Go to settings')
+            )
+          ],
+        ),
       ),
-
     );
   }
 }
+///Route
+class SettingScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Settings',style: TextStyle(
+                fontSize: 30
+            ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+///Route
+class OrderScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Order'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Order',style: TextStyle(
+                fontSize: 30
+            ),
+            ),
+            ElevatedButton(onPressed:(){
 
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingScreen()
+                  )
+              );
+            } ,
+                child:Text('Go To Settings')
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
