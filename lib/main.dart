@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_project_1/Gridview.dart';
 
 void main() {
   runApp(
@@ -14,203 +15,84 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Homescreen(),
-      title: 'MyApp',
-    );
-  }
-}
-///Route
-class Homescreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        centerTitle: true,
+      home:Homescreen(),
+      theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.pink,
+                padding: EdgeInsets.symmetric(vertical: 8.0,horizontal: 0.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)
+                ),
+                textStyle: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: 0.5
+                )
+
+            ),
+          ),
+          textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  textStyle: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      decoration:TextDecoration.underline
+                  )
+              )
+          ),
+          textTheme:TextTheme(
+              bodyLarge:TextStyle(
+                  color: Colors.green,
+                  fontSize: 22
+              ),
+              bodyMedium: TextStyle(
+                  color: Colors.indigo,
+                  fontSize: 17
+              ),
+              bodySmall: TextStyle(
+                  color: Colors.red,
+                  fontSize: 10
+              )
+          )
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Home',style: TextStyle(
-                fontSize: 30
-            ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: (){
-                  ///Navigation
-                  ///Route Homescreen to Route Setting Screen
-                  ///Navigation (push,pop,replace,replaceAll,removeUntil
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder:(context)=>OrderScreen()
-                      )
-                  );
-                },
-                child: Text('Tap for Order'),
-              ),
-            ),
-
-            ElevatedButton(
-                onPressed: (){
-                  ///Navigation
-                  ///Route Homescreen to Route Setting Screen
-                  ///Navigation (push,pop,replace,replaceAll,removeUntil
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder:(context)=>SettingScreen()
-                      )
-                  );
-                },
-                child: Text('Go to settings')
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: (){
-                    ///Navigation
-                    ///Route Homescreen to Route Setting Screen
-                    ///Navigation (push,pop,replace,replaceAll,removeUntil
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder:(context)=>ProductListScreen()
-                        )
-                    );
-                  },
-                  child: Text('Go to ProductList')
-              ),
-            )
-          ],
+      darkTheme: ThemeData(
+        brightness:Brightness.dark,
+        appBarTheme: AppBarTheme(
+            color: Colors.indigo
         ),
       ),
+      themeMode: ThemeMode.dark,
     );
   }
 }
-///Route
-class SettingScreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Settings',style: TextStyle(
-                fontSize: 30
-            ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-///Route
-class OrderScreen extends StatelessWidget {
+class Homescreen extends StatelessWidget {
+  const Homescreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Order'),
-          centerTitle: true,
+          title: Text('Home'),
+          leading: Icon(Icons.home_outlined),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Order', style: TextStyle(
-                  fontSize: 30
-              ),
-              ),
-              ElevatedButton(onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingScreen()
-                    )
-                );
-              },
-                  child: Text('Go To Settings')
-              )
-            ],
-          ),
-        )
-    );
-  }
-}
-class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Product List'),
-          centerTitle: true,
-        ),
-        body:ListView.builder(
-            itemCount: 20,
-            itemBuilder: (context,index) {
-              return ListTile(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context)=> ProductDetailsScreen(ProductName: '$index', Price:(index*100.0)))
-
-                  ).then((value){
-                    print(value);
-                  } ///(.then) => To Back from front screen with a value.
-                  );
-                },
-                title: Text('$index'),
-              );
-            }
-        )
-    );
-  }
-}
-
-class ProductDetailsScreen extends StatelessWidget {
-  final String ProductName;
-  final double? Price;
-  const ProductDetailsScreen({super.key,required this.ProductName, this.Price});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Product Details'),
-          centerTitle: true,
-        ),
-        body:Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Product Name: $ProductName',style: TextStyle(
-                  fontSize: 25
-              ),
-              ),
-              Text('Product Price: $Price',style: TextStyle(
-                  fontSize: 25
-              ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(onPressed: (){
-                  Navigator.pop(context,"Back from Product $ProductName");
-                },
-                    child: Text('Go Back')
-                ),
-              )
-            ],
-          ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Welcome',style: Theme.of(context).textTheme.bodyLarge,),
+                  Text('Welcome',style: Theme.of(context).textTheme.bodySmall,),
+                  Text('Welcome',style: Theme.of(context).textTheme.bodyMedium,),
+                  TextButton(onPressed: (){}, child:Text('Tap here')),
+                  ElevatedButton(onPressed: (){}, child:Text('Tap')),
+                  ElevatedButton(onPressed: (){}, child:Text('Tap')),
+                  TextButton(onPressed: (){}, child:Text('Tap here',style: TextStyle(
+                      decoration: TextDecoration.none
+                  ),),
+                  ),
+                  TextButton(onPressed: (){}, child:Text('Tap here')),
+                ]
+            )
         )
     );
   }
