@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_project_1/Gridview.dart';
-
 void main() {
   runApp(
       MyApp()
