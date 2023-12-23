@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_project/Extension.dart';
 
-void main(){
-  runApp(
-      MyApp()
-  );
+void main() {
+  runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -13,105 +13,124 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:CounterScreen()
+      home: ProductlistScreen(),
     );
   }
 }
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({super.key});
+
+class ProductlistScreen extends StatefulWidget {
+  const ProductlistScreen({super.key});
+
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
+  State<ProductlistScreen> createState() => _ProductlistScreenState();
 }
 
-class _CounterScreenState extends State<CounterScreen> {
-  int counter=0;
+class _ProductlistScreenState extends State<ProductlistScreen> {
+  List Product = [
+    {"Name": "Product 1",  "Price": "\$20.00"},
+    {"Name": "Product 2",  "Price": "\$10.00"},
+    {"Name": "Product 3",  "Price": "\$15.00"},
+    {"Name": "Product 4",  "Price": "\$25.00"},
+    {"Name": "Product 5",  "Price": "\$32.00"},
+    {"Name": "Product 6",  "Price": "\$30.00"},
+    {"Name": "Product 7",  "Price": "\$30.00"},
+    {"Name": "Product 8",  "Price": "\$30.00"},
+    {"Name": "Product 9",  "Price": "\$30.00"},
+    {"Name": "Product 10", "Price":"\$30.00"},
+    {"Name": "Product 11", "Price":"\$40.00"},
+    {"Name": "Product 12", "Price":"\$10.00"},
+    {"Name": "Product 13", "Price":"\$5.00"},
+    {"Name": "Product 14", "Price":"\$70.00"},
+    {"Name": "Product 15", "Price":"\$9.00"},
+  ];
+  List counter = List.filled(15, 0);
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
-        leading: Icon(Icons.home),
+        title: Text('ProductList'),
       ),
-
-      body:Center(
-        child:Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('$counter',style: Theme.of(context).textTheme.displayLarge),
-            ElevatedButton(onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder:(context) => ProfileScreen(username:'Ash_Fahim')
-                 ),
-              );
-
-            }, child:Text('Go to profile')
-            )
-          ],
-        ),
-        // child:Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text('$counter',style: Theme.of(context).textTheme.displayLarge,),
-        //     IconButton(onPressed: (){
-        //       counter+=1;
-        //       setState(() {
-        //       });
-        //     },
-        //         icon: Icon(Icons.add)),
-        //     TextButton(onPressed: (){
-        //       counter=0;
-        //       setState(() {});
-        //     }, child: Text('Reset')
-        //     )
-        //   ],
-        // ),
-      ),
-      floatingActionButton:FloatingActionButton(
-        onPressed: (){
-          counter+=1;
-          setState(() {});
+      body: ListView.builder(
+        itemCount: Product.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(Product[index]["Name"]),
+            subtitle: Text(Product[index]["Price"]),
+            trailing: Column(
+              children: [
+                Expanded(child: Text('counter:${counter[index]}')),
+                Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          count++;
+                          counter[index]++;
+                          setState(() {});
+                          if (counter[index] == 5) {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text('Congratulation!'),
+                                      content: Text(
+                                          'You Have bought 5 ${Product[index]["Name"]}!'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Ok'))
+                                      ],
+                                    ));
+                          }
+                        },
+                        child: Text('Buy Now')))
+              ],
+            ),
+          );
         },
-        child: Icon(Icons.add),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CartScreen(count)));
+        },
+        child: Icon(Icons.local_grocery_store),
+      ),
     );
   }
 }
 
-///widget Class
-class ProfileScreen extends StatefulWidget {
-  final String username;
-  const ProfileScreen({super.key,required this.username});
+class CartScreen extends StatefulWidget {
+  final int number;
+
+  CartScreen(this.number);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<CartScreen> createState() => _CartScreenState();
 }
 
-///State class
-class _ProfileScreenState extends State<ProfileScreen> {
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ProfileScreen'),
+        title: Text('Cart'),
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(widget.username,style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600
-             ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Total Product :${widget.number}',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
-
-
-
